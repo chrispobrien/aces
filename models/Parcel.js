@@ -14,7 +14,7 @@ Parcel.init(
         swis_sbl_key: {
             type: DataTypes.STRING(26),
             allowNull: false,
-            unique: true,
+            // unique: true,
         },
         swis_code: {
             type: DataTypes.VIRTUAL,
@@ -79,8 +79,8 @@ Parcel.init(
                 throw new Error('suffix is a virtual for swis_sbl_key');
             },
         },
-        check_digit: {
-            type: DataTypes.STRING(2),
+        print_key: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
         school_code: {
@@ -90,14 +90,6 @@ Parcel.init(
         description: {
             type: DataTypes.STRING,
         },
-        // property_class_id: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        //     references: {
-        //         model: 'codes',
-        //         key: 'code_id',
-        //     },
-        // },
         legal_address_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -106,6 +98,18 @@ Parcel.init(
                 key: 'address_id',
             },
         },
+        acreage: {
+            type: DataTypes.DECIMAL(11,4),
+            allowNull: false
+        },
+        total_assessed_value: {
+            type: DataTypes.DECIMAL(11,0),
+            allowNull: false
+        },
+        land_assessed_value: {
+            type: DataTypes.DECIMAL(11,0),
+            allowNull: false
+        }
     },
     {
         // pass in our imported sequelize connection (the direct connection to the database)

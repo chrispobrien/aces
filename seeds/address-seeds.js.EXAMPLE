@@ -1,0 +1,20 @@
+const fs = require('fs');
+const { Address } = require('../models');
+
+const bronxville = JSON.parse(fs.readFileSync('./seeds/bronxville.geojson', {encoding:'utf8', flag:'r'} ));
+
+console.log('-----------');
+
+const addressData = bronxville.features.reduce((obj, item) => (
+    obj.push({
+        address_number: item.properties.PROPADDRESS ? item.properties.PROPADDRESS.split(' ')[0] : null,
+        address_street: item.properties.PROPADDRESS ? item.properties.PROPADDRESS.split(' ').splice(1).join(' ') : '',
+        address_city: item.properties.MUNNAME,
+        address_state: 'NY',
+        address_zip5: '10708'
+    }), obj
+), []);
+
+const seedAddress = () => Address.bulkCreate(addressData);
+
+module.exports = seedAddress;
